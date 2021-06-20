@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ScriptCraftPlugin extends JavaPlugin {
-    private final FileConfiguration config;
+    public final FileConfiguration config;
     public boolean bukkit = true;
     protected ScriptEngine engine = null;
     private ScriptCraftConsole console;

@@ -1,8 +1,6 @@
 /*
   This file is the first and only file executed directly from the Java Plugin.
 */
-console.log("This file is the first and only file executed directly from the Java Plugin");
-
 var File = java.io.File,
     FileReader = java.io.FileReader,
     FileOutputStream = java.io.FileOutputStream,
