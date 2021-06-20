@@ -25,7 +25,6 @@ function unzip(zis, logger) {
         newFile = new File(jsPlugins, entry.getName());
         if (entry.isDirectory()) {
             newFile.mkdirs();
-            zis.closeEntry();
             continue;
         }
         reason = null;
