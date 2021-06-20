@@ -75,20 +75,20 @@ var __scboot = null;
         }
 
         for (i = 0; i < len; i++) {
-            if (plugin.config.getBoolean('extract-js.' + zips[i])) {
-                zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
-                unzip(zis, logger);
-            }
+            if (plugin.config)
+                if (plugin.config.getBoolean('extract-js.' + zips[i])) {
+                    zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
+                    unzip(zis, logger);
+                } else
+                    logger.severe("Error missing config: " + plugin)
         }
-        if (plugin.bukkit) {
-            plugin.saveDefaultConfig();
-        }
+        plugin.saveDefaultConfig();
         try {
             engine.eval(new FileReader(initScriptFile));
             __onEnable(engine, plugin, initScriptFile);
         } catch (e) {
             var msg = 'Error evaluating ' + initScriptFile + ': ' + e;
-            ogger.severe(msg);
+            logger.severe(msg);
             throw e;
         }
     };

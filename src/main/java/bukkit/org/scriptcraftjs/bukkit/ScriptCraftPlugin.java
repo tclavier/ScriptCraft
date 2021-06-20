@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ScriptCraftPlugin extends JavaPlugin {
-    public boolean canary = false;
     public boolean bukkit = true;
     protected ScriptEngine engine = null;
     // right now all ops share the same JS context/scope

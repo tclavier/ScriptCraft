@@ -429,7 +429,6 @@
 */
 var global = this;
 var server;
-global.nashorn = typeof Java !== 'undefined';
 /* private implementation */
 
 var __onDisableImpl;
