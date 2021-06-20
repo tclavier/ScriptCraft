@@ -41,9 +41,9 @@ function unzip(zis, logger) {
             }
         }
         if (unzipFile) {
-            logger.info('Unzipping ' + newFile.canonicalPath + ' (' + reason + ')');
+            logger.info('Unzipping ' + newFile.getCanonicalPath() + ' (' + reason + ')');
             fout = new FileOutputStream(newFile);
-            for (c = zis.read(); c != -1; c = zis.read()) {
+            for (let c = zis.read(); c !== -1; c = zis.read()) {
                 fout.write(c);
             }
             fout.close();
