@@ -88,7 +88,6 @@ store.sort(
     /lib\/require\.js$/,
     /lib\/plugin\.js$/,
     /lib\/events\.js$/,
-    /lib\/events\-helper\-canary/,
     /lib\/events\-helper\-bukkit/,
     /lib\//,
     /modules\/drone\/index\.js/,
