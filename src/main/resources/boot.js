@@ -19,8 +19,6 @@ function unzip(zis, logger) {
         c,
         newFile;
 
-    zis.reset();
-
     while ((entry = zis.nextEntry) != null) {
         console.log("Unzip: " + entry.name);
         newFile = new File(jsPlugins, entry.name);
@@ -53,6 +51,7 @@ function unzip(zis, logger) {
         zis.closeEntry();
     }
     zis.close();
+    console.log("Unzip finished")
 }
 
 /*

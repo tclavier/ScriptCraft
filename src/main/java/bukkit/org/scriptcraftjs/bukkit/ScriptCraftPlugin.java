@@ -26,7 +26,6 @@ public class ScriptCraftPlugin extends JavaPlugin {
     public ScriptCraftPlugin() {
         this.console = new ScriptCraftConsole(this.getLogger());
         this.config = this.getConfig();
-
     }
 
     @Override
