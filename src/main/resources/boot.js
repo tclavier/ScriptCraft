@@ -1,13 +1,12 @@
 /*
   This file is the first and only file executed directly from the Java Plugin.
 */
-var File = java.io.File,
-    FileReader = java.io.FileReader,
-    FileOutputStream = java.io.FileOutputStream,
-    ZipInputStream = java.util.zip.ZipInputStream,
-    //jsPlugins = new File('plugins/scriptcraft'),
-    jsPlugins = new File('scriptcraft'),
-    initScript = 'lib/scriptcraft.js';
+const File = java.io.File;
+const FileReader = java.io.FileReader;
+const FileOutputStream = java.io.FileOutputStream;
+const ZipInputStream = java.util.zip.ZipInputStream;
+//jsPlugins = new File('plugins/scriptcraft'),
+const jsPlugins = new File('scriptcraft');
 
 function unzip(zis, logger) {
     var entry,
@@ -16,9 +15,8 @@ function unzip(zis, logger) {
         zTime = 0,
         fTime = 0,
         fout = null,
-        c,
         newFile;
-    while ((entry = zis.getNextEntry()) != null) {
+    while ((entry = zis.getNextEntry()) !== null) {
         newFile = new File(jsPlugins, entry.getName());
         if (entry.isDirectory()) {
             newFile.mkdirs();
@@ -48,21 +46,17 @@ function unzip(zis, logger) {
         }
     }
     zis.close();
-    console.log("Unzip finished")
 }
 
 /*
   Called from Java plugin
 */
 function __scboot(plugin, engine) {
-    console.log("DEBUG: " + plugin);
-
-    var logger = plugin.logger,
-        initScriptFile = new File(jsPlugins, initScript),
-        zips = ['lib', 'plugins', 'modules'],
-        i = 0,
-        zis,
-        len = zips.length;
+    let logger = plugin.logger;
+    let zips = ['lib', 'plugins', 'modules'];
+    let i = 0;
+    let zis;
+    let len = zips.length;
 
     if (!jsPlugins.exists()) {
         logger.info('Directory ' + jsPlugins.canonicalPath + ' does not exist.');
@@ -75,21 +69,23 @@ function __scboot(plugin, engine) {
             if (plugin.config.getBoolean('extract-js.' + zips[i])) {
                 zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
                 unzip(zis, logger);
-                console.log("Extracted: " + zips[i] + ".zip");
             } else {
-                console.log("Could not extract: " + zips[i]);
+                logger.severe("Could not extract: " + zips[i]);
             }
         } else {
-            console.log("Missing config attribute on: " + plugin);
+            logger.severe("Missing config attribute on: " + plugin);
         }
     }
     plugin.saveDefaultConfig();
+    const initScript = 'lib/scriptcraft.js';
+    let initScriptFile = new File(jsPlugins, initScript);
     try {
         engine.eval(new FileReader(initScriptFile));
         __onEnable(engine, plugin, initScriptFile);
     } catch (e) {
-        var msg = 'Error evaluating ' + initScriptFile + ': ' + e;
+        const msg = 'Error evaluating ' + initScriptFile + ': ' + e.getMessage();
         logger.severe(msg);
+        e.printStackTrace();
         throw e;
     }
 }

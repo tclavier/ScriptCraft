@@ -441,7 +441,7 @@ function __onDisable(__engine, __plugin) {
 function __onEnable(__engine, __plugin, __script) {
     function _echo() {
         var sender, msg;
-        if (arguments.length == 2) {
+        if (arguments.length === 2) {
             sender = arguments[0];
             msg = arguments[1];
         } else {
@@ -617,7 +617,7 @@ function __onEnable(__engine, __plugin, __script) {
         }
         result = false;
 
-        if (cmdName == 'js') {
+        if (cmdName === 'js') {
             result = true;
             fnBody = jsArgs.join(' ');
             global.self = sender;
@@ -682,7 +682,7 @@ function __onEnable(__engine, __plugin, __script) {
                 delete global.__engine;
             }
         }
-        if (cmdName == 'jsp') {
+        if (cmdName === 'jsp') {
             cmdModule.exec(jsArgs, sender);
             result = true;
         }
