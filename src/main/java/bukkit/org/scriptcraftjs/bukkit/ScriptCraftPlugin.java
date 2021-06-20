@@ -34,7 +34,6 @@ public class ScriptCraftPlugin extends JavaPlugin {
                 bindings.put("polyglot.js.allowHostClassLookup", (Predicate<String>) s -> true);
                 Invocable inv = (Invocable) this.engine;
                 this.engine.eval(new InputStreamReader(this.getResource("boot.js")));
-                this.getLogger().severe("Just before scboot with: " + this);
                 inv.invokeFunction("__scboot", this, engine);
             }
         } catch (Exception e) {
