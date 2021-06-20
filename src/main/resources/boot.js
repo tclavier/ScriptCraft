@@ -48,7 +48,6 @@ function unzip(zis, logger) {
             }
             fout.close();
         }
-        zis.closeEntry();
     }
     zis.close();
     console.log("Unzip finished")
