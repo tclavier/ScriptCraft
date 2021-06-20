@@ -21,15 +21,15 @@ function unzip(zis, logger) {
     console.log("Unzip start")
     while (zis.available() > 0) {
         entry = zis.getNextEntry();
-        console.log("Unzip: " + entry.name);
-        newFile = new File(jsPlugins, entry.name);
+        console.log("Unzip: " + entry.getName());
+        newFile = new File(jsPlugins, entry.getName());
         if (entry.isDirectory()) {
             newFile.mkdirs();
             zis.closeEntry();
             continue;
         }
         reason = null;
-        zTime = entry.time;
+        zTime = entry.getTime();
         unzipFile = false;
         if (!newFile.exists()) {
             reason = 'NE';
