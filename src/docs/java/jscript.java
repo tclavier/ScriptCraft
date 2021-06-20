@@ -9,13 +9,13 @@ public class jscript {
     public static void main(String[] args) throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         ScriptEngine engine = factory.getEngineByName("JavaScript");
-        java.io.File file = new java.io.File(args[0]);
-        engine.put("engine", engine);
-        engine.put("args", args);
         Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
         bindings.put("polyglot.js.allowHostAccess", true);
         bindings.put("polyglot.js.allowHostClassLookup", (Predicate<String>) s -> true);
         FileReader fr = new java.io.FileReader(file);
+        java.io.File file = new java.io.File(args[0]);
+        engine.put("engine", engine);
+        engine.put("args", args);
         engine.eval(fr);
         fr.close();
     }
