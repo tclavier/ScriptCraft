@@ -13,10 +13,15 @@ import java.util.function.Predicate;
 public class ScriptCraftPlugin extends JavaPlugin {
     public boolean bukkit = true;
     protected ScriptEngine engine = null;
+    private ScriptCraftConsole console;
     // right now all ops share the same JS context/scope
     // need to look at possibly having context/scope per operator
     //protected Map<CommandSender,ScriptCraftEvaluator> playerContexts = new HashMap<CommandSender,ScriptCraftEvaluator>();
     private String NO_JAVASCRIPT_MESSAGE = "No JavaScript Engine available. ScriptCraft will not work without Javascript.";
+
+    public ScriptCraftPlugin() {
+        this.console = new ScriptCraftConsole(this.getLogger());
+    }
 
     @Override
     public void onEnable() {
@@ -32,6 +37,7 @@ public class ScriptCraftPlugin extends JavaPlugin {
                 Bindings bindings = this.engine.getBindings(ScriptContext.ENGINE_SCOPE);
                 bindings.put("polyglot.js.allowHostAccess", true);
                 bindings.put("polyglot.js.allowHostClassLookup", (Predicate<String>) s -> true);
+                engine.put("console", console);
                 Invocable inv = (Invocable) this.engine;
                 this.engine.eval(new InputStreamReader(this.getResource("boot.js")));
                 inv.invokeFunction("__scboot", this, engine);

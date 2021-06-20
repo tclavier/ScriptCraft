@@ -55,7 +55,7 @@ var unzip = function (zis, logger) {
 /*
   Called from Java plugin
 */
-function __scboot(plugin, engine, classLoader) {
+function __scboot(plugin, engine) {
     console.log("DEBUG: " + plugin);
 
     var logger = plugin.logger,
