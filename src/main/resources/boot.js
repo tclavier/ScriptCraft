@@ -75,12 +75,13 @@ var __scboot = null;
         }
 
         for (i = 0; i < len; i++) {
-            if (plugin.config)
+            if (plugin.config) {
                 if (plugin.config.getBoolean('extract-js.' + zips[i])) {
                     zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
                     unzip(zis, logger);
-                } else
-                    logger.severe("Error missing config: " + plugin)
+                }
+            } else
+                logger.severe("Error missing config: " + plugin)
         }
         plugin.saveDefaultConfig();
         try {
