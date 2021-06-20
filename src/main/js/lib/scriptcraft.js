@@ -427,11 +427,11 @@
 /*
   wph 20130124 - make self, plugin and server public - these are far more useful now that tab-complete works.
 */
-var global = this;
-var server;
+let global = this;
+let server;
 /* private implementation */
 
-var __onDisableImpl;
+let __onDisableImpl;
 
 /* eslint no-unused-vars: off */
 function __onDisable(__engine, __plugin) {
@@ -627,7 +627,7 @@ function __onEnable(__engine, __plugin, __script) {
                 // because ...
                 // js var hearts
                 // js hearts
-                // ... throws an execption ('hearts' is not defined). vars are not sticky in native eval .
+                // ... throws an exception ('hearts' is not defined). vars are not sticky in native eval .
                 //
                 var code = fnBody;
                 replHooks.forEach(function (xform) {
@@ -689,12 +689,10 @@ function __onEnable(__engine, __plugin, __script) {
         return result;
     } // end __onCommand() function
 
-    var Bukkit = null;
-    var logger = null;
 
-    Bukkit = Packages.org.bukkit.Bukkit;
+    const Bukkit = Packages.org.bukkit.Bukkit;
     server = Bukkit.server;
-    logger = __plugin.logger;
+    let logger = __plugin.logger;
 
     function logError(msg) {
         logger.severe(msg);

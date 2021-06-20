@@ -85,7 +85,6 @@ function __scboot(plugin, engine) {
     } catch (e) {
         const msg = 'Error evaluating ' + initScriptFile + ': ' + e.getMessage();
         logger.severe(msg);
-        e.printStackTrace();
         throw e;
     }
 }

@@ -41,7 +41,7 @@ var _getProperties = function (o) {
             // don't include standard Object methods
             //
             for (j = 0; j < _javaLangObjectMethods.length; j++) {
-                if (_javaLangObjectMethods[j] == i) {
+                if (_javaLangObjectMethods[j] === i) {
                     continue propertyLoop;
                 }
             }
@@ -50,23 +50,21 @@ var _getProperties = function (o) {
                 propValue = o[i];
                 typeofProperty = typeof propValue;
             } catch (e) {
-                if (
-                    e.message == 'java.lang.IllegalStateException: Entity not leashed'
-                ) {
+                if (e.message === 'java.lang.IllegalStateException: Entity not leashed') {
                     // wph 20131020 fail silently for Entity leashing in craftbukkit
                 } else {
                     // don't throw an error during tab completion just make a best effort to
                     // do the job.
                 }
             }
-            if (typeofProperty == 'function') {
+            if (typeofProperty === 'function') {
                 result.push(i + '()');
             } else {
                 result.push(i);
             }
         }
     } else {
-        if (o.constructor == Array) {
+        if (o.constructor === Array) {
             return result;
         }
         for (i in o) {
@@ -121,7 +119,7 @@ var onTabCompleteJS = function () {
     cmdArgs = arguments[4];
     cmdArgs = Array.prototype.slice.call(cmdArgs, 0);
 
-    if (pluginCmd == 'jsp') {
+    if (pluginCmd === 'jsp') {
         return tabCompleteJSP(result, cmdArgs);
     }
 
@@ -135,7 +133,7 @@ var onTabCompleteJS = function () {
 
     statement = statement.replace(/^\s+/, '').replace(/\s+$/, '');
 
-    if (statement.length == 0) {
+    if (statement.length === 0) {
         propsOfLastArg = _globalSymbols;
     } else {
         if (statement.match(/\)$/)) {
@@ -150,7 +148,7 @@ var onTabCompleteJS = function () {
         //
         parts = lastSymbol.split(/\./);
         name = parts[0];
-        if (name == '') return; // fix issue #390
+        if (name === '') return; // fix issue #390
 
         symbol = global[name];
 
