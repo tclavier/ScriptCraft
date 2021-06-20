@@ -71,10 +71,7 @@ function sorter(precedence) {
 var err = java.lang.System.err;
 args = Array.prototype.slice.call(args, 1);
 
-if (typeof importPackage == 'undefined') {
-  // load compatibility script
-  load('nashorn:mozilla_compat.js');
-}
+
 var dir = args[0];
 
 var io = Packages.java.io;
