@@ -56,6 +56,8 @@ var unzip = function (zis, logger) {
   Called from Java plugin
 */
 function __scboot(plugin, engine, classLoader) {
+    console.log("DEBUG: " + plugin);
+
     var logger = plugin.logger,
         initScriptFile = new File(jsPlugins, initScript),
         zips = ['lib', 'plugins', 'modules'],
@@ -79,8 +81,7 @@ function __scboot(plugin, engine, classLoader) {
                 zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
                 unzip(zis, logger);
             }
-        } else
-            logger.severe("Error missing config: " + plugin)
+        }
     }
     plugin.saveDefaultConfig();
     try {

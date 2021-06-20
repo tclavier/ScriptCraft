@@ -47,7 +47,7 @@ public class ScriptCraftPlugin extends JavaPlugin {
     public List<String> onTabComplete(CommandSender sender, Command cmd,
                                       String alias,
                                       String[] args) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         if (this.engine == null) {
             this.getLogger().severe(NO_JAVASCRIPT_MESSAGE);
             return null;
