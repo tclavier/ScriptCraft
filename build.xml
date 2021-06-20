@@ -2,16 +2,13 @@
   <property file="build.properties"/>
   <description>Builds the scriptcraft.jar file - a plugin for bukkit</description>
   <!-- ScriptCraft works with:
-       * CanaryMod
        * Bukkit
        * Glowstone (which is bukkit-compatible)
        * Spigot (which is bukkit-compatible)
   -->
-  <property name="src.canary" location="src/main/java/canary"/>
   <property name="src.bukkit" location="src/main/java/bukkit"/>
 
   <!-- compiles against these libraries -->
-  <property name="lib.canary" location="lib/canarymod-1.8.0.jar"/>
   <property name="lib.bukkit" location="lib/spigot-api-1.13.2-R0.1-SNAPSHOT-shaded.jar"/>
 
   <property name="build" location="target/classes"/>
@@ -27,7 +24,7 @@
     <attribute name="lib"/>
     <element name="js-args" implicit="yes" optional="true"/>
     <sequential>
-      <echo message="cp=${build}:${lib.canary}:${lib.bukkit}"></echo>
+      <echo message="cp=${build}:${lib.bukkit}"></echo>
       <echo message="src=@{src} out=@{out} err=@{err}"></echo>
       <java classname="jscript" 
 	    failonerror="true"
@@ -51,7 +48,6 @@
     </tstamp>
     <mkdir dir="${build}"/>
 
-    <available file="${lib.canary}" property="canary.present"/>
     <available file="${dist}/js/modules/underscore.js" property="underscore.present"/>
     <available file="${dist}/js/modules/babel.js" property="babel.present"/>
   </target>
@@ -61,16 +57,14 @@
   </target>
 
 
-  <target name="compile-plugins" depends="init" description="compile canary plugin source">
+  <target name="compile-plugins" depends="init" description="compile plugin source">
     <javac includeantruntime="false" 
            source="1.6" 
            target="1.6" 
            destdir="${build}" 
            debug="true">
-      <src path="${src.canary}"/>
       <src path="${src.bukkit}"/>
       <classpath>
-	<pathelement path="${lib.canary}" />
 	<pathelement path="${lib.bukkit}" />
       </classpath>
     </javac>
@@ -83,9 +77,7 @@
 
   <target name="compile-docs" depends="init">
     <javac includeantruntime="false" srcdir="src/docs/java" destdir="${build}">
-      <classpath>
-	<pathelement path="${lib.canary}"/>
-      </classpath>
+
     </javac>
   </target>
 
@@ -120,20 +112,6 @@
       <fileset file="${dist}/entities-bukkit.md" />
     </concat>
 
-  </target>
-
-
-  <target name="gen-events-helper-canary" depends="compile-docs,init">
-    <mkdir dir="${dist}/js/lib"/>
-    <jscript src="src/docs/js/generateEventsHelper.js" 
-	     out="${dist}/js/lib/events-helper-canary.js"
-	     lib="${lib.canary}"
-	     err="${dist}/gen-events-canary-error.log">
-      <arg value="CanaryMod"/>
-      <arg value="${lib.canary}"/>
-      <arg value="blockDestroy"/>
-      <arg value="net.canarymod.hook.player.BlockDestroyHook"/>
-    </jscript>
   </target>
 
   <target name="gen-events-helper-bukkit" depends="compile-docs,init">
@@ -209,7 +187,7 @@ Walter Higgins
   <target name="zip_js" depends="zip_lib, zip_modules, zip_plugins">
   </target>
 
-  <target name="copy-js" depends="gen-events-helper-bukkit,gen-events-helper-canary,init">
+  <target name="copy-js" depends="gen-events-helper-bukkit,init">
     <copy todir="${dist}/js">
       <fileset dir="src/main/js"/>
     </copy>
@@ -258,14 +236,10 @@ Walter Higgins
   <target name="package" depends="gendocs,zip_js,compile-plugins" description="generate the distribution" >
     <!-- ensure plugin.yml is always copied -->
     <delete file="${build}/plugin.yml" />
-    <delete file="${build}/Canary.inf" />
     <copy todir="${build}">
       <fileset dir="src/main/resources"/>
     </copy>
     <replace file="${build}/plugin.yml" value="${scriptcraft-version}-${DSTAMP}">
-      <replacetoken>[[version]]</replacetoken>
-    </replace>
-    <replace file="${build}/Canary.inf" value="${scriptcraft-version}-${DSTAMP}">
       <replacetoken>[[version]]</replacetoken>
     </replace>
     
