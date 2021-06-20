@@ -20,6 +20,7 @@ function unzip(zis, logger) {
         newFile;
 
     while ((entry = zis.nextEntry) != null) {
+        console.log("Unzip: "+ entry.name);
         newFile = new File(jsPlugins, entry.name);
         if (entry.isDirectory()) {
             newFile.mkdirs();
@@ -83,7 +84,7 @@ function __scboot(plugin, engine) {
                 unzip(zis, logger);
             }
         } else {
-            console.log("Missing config attribute")
+            console.log("Missing config attribute on: " + plugin);
         }
     }
     plugin.saveDefaultConfig();
