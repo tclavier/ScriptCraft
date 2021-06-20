@@ -20,7 +20,7 @@ function unzip(zis, logger) {
         newFile;
 
     while ((entry = zis.nextEntry) != null) {
-        console.log("Unzip: "+ entry.name);
+        console.log("Unzip: " + entry.name);
         newFile = new File(jsPlugins, entry.name);
         if (entry.isDirectory()) {
             newFile.mkdirs();
@@ -82,6 +82,8 @@ function __scboot(plugin, engine) {
             if (plugin.config.getBoolean('extract-js.' + zips[i])) {
                 zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
                 unzip(zis, logger);
+            } else {
+                console.log("Could not extract: " + zips[i]);
             }
         } else {
             console.log("Missing config attribute on: " + plugin);
