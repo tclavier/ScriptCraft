@@ -20,7 +20,7 @@ function unzip(zis, logger) {
         newFile;
     console.log("Unzip start")
     while (zis.available() > 0) {
-        entry = zis.nextEntry();
+        entry = zis.getNextEntry();
         console.log("Unzip: " + entry.name);
         newFile = new File(jsPlugins, entry.name);
         if (entry.isDirectory()) {
