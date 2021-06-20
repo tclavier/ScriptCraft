@@ -68,7 +68,6 @@ function __scboot(plugin, engine) {
         len = zips.length;
 
     if (!jsPlugins.exists()) {
-        console.log('Directory ' + jsPlugins.canonicalPath + ' does not exist.');
         logger.info('Directory ' + jsPlugins.canonicalPath + ' does not exist.');
         logger.info('Initializing ' + jsPlugins.canonicalPath + ' directory with contents from plugin archive.');
         jsPlugins.mkdirs();
@@ -93,7 +92,6 @@ function __scboot(plugin, engine) {
         __onEnable(engine, plugin, initScriptFile);
     } catch (e) {
         var msg = 'Error evaluating ' + initScriptFile + ': ' + e;
-        console.log(msg);
         logger.severe(msg);
         throw e;
     }

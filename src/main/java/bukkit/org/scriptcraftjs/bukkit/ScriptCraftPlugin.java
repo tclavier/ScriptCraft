@@ -11,10 +11,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 import java.util.zip.ZipInputStream;
 
 public class ScriptCraftPlugin extends JavaPlugin {
     public final FileConfiguration config;
+    public final Logger logger;
     public boolean bukkit = true;
     protected ScriptEngine engine = null;
     private ScriptCraftConsole console;
@@ -24,7 +26,8 @@ public class ScriptCraftPlugin extends JavaPlugin {
     private String NO_JAVASCRIPT_MESSAGE = "No JavaScript Engine available. ScriptCraft will not work without Javascript.";
 
     public ScriptCraftPlugin() {
-        this.console = new ScriptCraftConsole(this.getLogger());
+        this.logger = this.getLogger();
+        this.console = new ScriptCraftConsole(logger);
         this.config = this.getConfig();
     }
 
