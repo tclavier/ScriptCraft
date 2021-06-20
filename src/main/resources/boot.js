@@ -18,8 +18,9 @@ function unzip(zis, logger) {
         fout = null,
         c,
         newFile;
-
-    while ((entry = zis.nextEntry) != null) {
+    console.log("Unzip start")
+    while (zis.available() > 0) {
+        entry = zis.nextEntry();
         console.log("Unzip: " + entry.name);
         newFile = new File(jsPlugins, entry.name);
         if (entry.isDirectory()) {
