@@ -6,10 +6,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.script.*;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.zip.ZipInputStream;
 
 public class ScriptCraftPlugin extends JavaPlugin {
     public final FileConfiguration config;
@@ -24,6 +26,7 @@ public class ScriptCraftPlugin extends JavaPlugin {
     public ScriptCraftPlugin() {
         this.console = new ScriptCraftConsole(this.getLogger());
         this.config = this.getConfig();
+
     }
 
     @Override

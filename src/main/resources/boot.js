@@ -19,6 +19,8 @@ function unzip(zis, logger) {
         c,
         newFile;
 
+    zis.reset();
+
     while ((entry = zis.nextEntry) != null) {
         console.log("Unzip: " + entry.name);
         newFile = new File(jsPlugins, entry.name);
@@ -51,7 +53,7 @@ function unzip(zis, logger) {
         zis.closeEntry();
     }
     zis.close();
-};
+}
 
 /*
   Called from Java plugin
@@ -78,7 +80,7 @@ function __scboot(plugin, engine) {
             if (plugin.config.getBoolean('extract-js.' + zips[i])) {
                 zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
                 unzip(zis, logger);
-                console.log("Extracted: " + zips[i]);
+                console.log("Extracted: " + zips[i] + ".zip");
             } else {
                 console.log("Could not extract: " + zips[i]);
             }
