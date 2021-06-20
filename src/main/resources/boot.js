@@ -5,7 +5,6 @@ const File = java.io.File;
 const FileReader = java.io.FileReader;
 const FileOutputStream = java.io.FileOutputStream;
 const ZipInputStream = java.util.zip.ZipInputStream;
-//jsPlugins = new File('plugins/scriptcraft'),
 const jsPlugins = new File('scriptcraft');
 
 function unzip(zis, logger) {
