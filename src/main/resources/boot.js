@@ -1,6 +1,8 @@
 /*
   This file is the first and only file executed directly from the Java Plugin.
 */
+console.log("This file is the first and only file executed directly from the Java Plugin");
+
 var File = java.io.File,
     FileReader = java.io.FileReader,
     FileOutputStream = java.io.FileOutputStream,
@@ -9,7 +11,7 @@ var File = java.io.File,
     jsPlugins = new File('scriptcraft'),
     initScript = 'lib/scriptcraft.js';
 
-var unzip = function (zis, logger) {
+function unzip(zis, logger) {
     var entry,
         reason = null,
         unzipFile = false,
@@ -66,6 +68,7 @@ function __scboot(plugin, engine) {
         len = zips.length;
 
     if (!jsPlugins.exists()) {
+        console.log('Directory ' + jsPlugins.canonicalPath + ' does not exist.');
         logger.info('Directory ' + jsPlugins.canonicalPath + ' does not exist.');
         logger.info(
             'Initializing ' +
@@ -81,6 +84,8 @@ function __scboot(plugin, engine) {
                 zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
                 unzip(zis, logger);
             }
+        } else {
+            console.log("Missing config attribute")
         }
     }
     plugin.saveDefaultConfig();
@@ -89,6 +94,7 @@ function __scboot(plugin, engine) {
         __onEnable(engine, plugin, initScriptFile);
     } catch (e) {
         var msg = 'Error evaluating ' + initScriptFile + ': ' + e;
+        console.log(msg);
         logger.severe(msg);
         throw e;
     }

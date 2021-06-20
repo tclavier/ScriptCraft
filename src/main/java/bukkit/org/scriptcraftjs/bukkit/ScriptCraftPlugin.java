@@ -2,6 +2,7 @@ package org.scriptcraftjs.bukkit;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.script.*;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ScriptCraftPlugin extends JavaPlugin {
+    private final FileConfiguration config;
     public boolean bukkit = true;
     protected ScriptEngine engine = null;
     private ScriptCraftConsole console;
@@ -21,6 +23,7 @@ public class ScriptCraftPlugin extends JavaPlugin {
 
     public ScriptCraftPlugin() {
         this.console = new ScriptCraftConsole(this.getLogger());
+        this.config = this.getConfig();
     }
 
     @Override
