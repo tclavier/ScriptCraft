@@ -69,11 +69,7 @@ function __scboot(plugin, engine) {
     if (!jsPlugins.exists()) {
         console.log('Directory ' + jsPlugins.canonicalPath + ' does not exist.');
         logger.info('Directory ' + jsPlugins.canonicalPath + ' does not exist.');
-        logger.info(
-            'Initializing ' +
-            jsPlugins.canonicalPath +
-            ' directory with contents from plugin archive.'
-        );
+        logger.info('Initializing ' + jsPlugins.canonicalPath + ' directory with contents from plugin archive.');
         jsPlugins.mkdirs();
     }
 
@@ -82,6 +78,7 @@ function __scboot(plugin, engine) {
             if (plugin.config.getBoolean('extract-js.' + zips[i])) {
                 zis = new ZipInputStream(plugin.getResource(zips[i] + '.zip'));
                 unzip(zis, logger);
+                console.log("Extracted: " + zips[i]);
             } else {
                 console.log("Could not extract: " + zips[i]);
             }
