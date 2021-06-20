@@ -7,12 +7,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.script.*;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ScriptCraftPlugin extends JavaPlugin {
@@ -59,9 +61,7 @@ public class ScriptCraftPlugin extends JavaPlugin {
         }
     }
 
-    public List<String> onTabComplete(CommandSender sender, Command cmd,
-                                      String alias,
-                                      String[] args) {
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
         List<String> result = new ArrayList<>();
         if (this.engine == null) {
             this.getLogger().severe(NO_JAVASCRIPT_MESSAGE);
@@ -92,7 +92,7 @@ public class ScriptCraftPlugin extends JavaPlugin {
             sender.sendMessage(se.getMessage());
         }
         if (jsResult != null) {
-            return ((Boolean) jsResult).booleanValue();
+            return (Boolean) jsResult;
         }
         return result;
     }

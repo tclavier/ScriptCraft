@@ -19,8 +19,7 @@ function unzip(zis, logger) {
         c,
         newFile;
     console.log("Unzip start")
-    while (zis.available() > 0) {
-        entry = zis.getNextEntry();
+    while ((entry = zis.getNextEntry()) !== undefined) {
         console.log("Unzip: " + entry.getName());
         newFile = new File(jsPlugins, entry.getName());
         if (entry.isDirectory()) {
@@ -43,7 +42,8 @@ function unzip(zis, logger) {
         if (unzipFile) {
             logger.info('Unzipping ' + newFile.getCanonicalPath() + ' (' + reason + ')');
             fout = new FileOutputStream(newFile);
-            for (let c = zis.read(); c !== -1; c = zis.read()) {
+            while (zis.available() > 0) {
+                let c = zis.read();
                 fout.write(c);
             }
             fout.close();
